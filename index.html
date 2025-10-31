@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ 祝福弹窗 ✨</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+      padding: 20px;
+      position: relative;
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1533134486753-c833f0ed4866?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+      background-size: cover;
+      z-index: -2;
+    }
+
+    .background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: -1;
+    }
+
+    .popup-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .popup {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 15px 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      font-weight: 500;
+      transition: transform 0.3s, opacity 0.3s;
+      pointer-events: all;
+      cursor: pointer;
+      min-width: 180px;
+      white-space: nowrap;
+      animation: float 3s ease-in-out infinite;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      will-change: transform, opacity;
+    }
+
+    .popup:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .popup-content {
+      font-size: 18px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      white-space: nowrap;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .popup:hover .popup-close {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .popup-close:hover {
+      color: white;
+    }
+
+    .popup-emoji {
+      font-size: 24px;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .controls-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      transition: opacity 0.3s;
+    }
+
+    .auto-hide .controls-container {
+      opacity: 0;
+    }
+
+    .auto-hide .controls-container:hover {
+      opacity: 1;
+    }
+
+    .settings-btn {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .settings-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+
+    .controls {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 20px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      width: 300px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: opacity 0.5s;
+    }
+
+    /* 自定义滚动条样式 */
+    .controls::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .controls::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .controls::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    .controls::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .controls-container:hover .controls {
+      display: flex;
+    }
+
+    .controls.show {
+      display: flex;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .counter {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: opacity 0.3s;
+    }
+
+    .auto-hide .counter {
+      opacity: 0;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .control-input {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: white;
+      font-size: 14px;
+    }
+
+    .control-input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    textarea.control-input {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* 自定义textarea滚动条 */
+    textarea.control-input::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    textarea.control-input::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    textarea.control-input::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    textarea.control-input::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.toggle-slider {
+      background-color: rgba(106, 17, 203, 0.8);
+    }
+
+    input:checked+.toggle-slider:before {
+      transform: translateX(26px);
+    }
+
+    select.control-input {
+      cursor: pointer;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .category-tab {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .category-tab.active {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* 文案管理模态框样式 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 模态框滚动条 */
+    .modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .modal-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .message-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .message-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+    }
+
+    .message-text {
+      flex: 1;
+    }
+
+    .message-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .message-action-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 4px;
+      color: white;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .message-action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .add-message-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .add-message-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: white;
+    }
+
+    .add-message-input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .emoji-selector {
+      display: flex;
+      gap: 5px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .emoji-option {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .emoji-option:hover,
+    .emoji-option.selected {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-10px) rotate(1deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .liquid-effect {
+      position: fixed;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+      animation: liquidMove 15s infinite linear;
+      z-index: -1;
+    }
+
+    @keyframes liquidMove {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      button {
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+
+      .controls {
+        width: 280px;
+      }
+
+      .modal-content {
+        width: 95%;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+  <div class="background-overlay"></div>
+  <div class="liquid-effect"></div>
+
+  <div class="popup-container" id="popupContainer"></div>
+
+  <div class="controls-container">
+    <div class="settings-btn">
+      <i class="fas fa-cog"></i>
+    </div>
+    <div class="controls" id="controlsPanel">
+      <div class="control-group">
+        <div class="control-label">文案分类</div>
+        <div class="category-tabs">
+          <div class="category-tab active" data-category="all">全部</div>
+          <div class="category-tab" data-category="classic">古风</div>
+          <div class="category-tab" data-category="romantic">浪漫</div>
+          <div class="category-tab" data-category="encouraging">勉励</div>
+          <div class="category-tab" data-category="modern">现代</div>
+        </div>
+        <button id="manageMessagesBtn" style="margin-top: 10px;">
+          <i class="fas fa-edit"></i> 管理文案
+        </button>
+      </div>
+      <div class="control-group">
+        <div class="control-label">自定义文案</div>
+        <textarea id="customMessages" class="control-input" placeholder="请输入自定义祝福语，每行一条"></textarea>
+      </div>
+      <div class="control-group">
+        <div class="control-label">总弹窗数量</div>
+        <input type="number" id="popupCount" class="control-input" value="100" min="1" max="1000">
+      </div>
+      <div class="control-group">
+        <div class="control-label">生成速度 (毫秒)</div>
+        <input type="number" id="popupSpeed" class="control-input" value="300" min="100" max="2000">
+      </div>
+      <div class="control-group">
+        <div class="control-label">同时显示最大数量</div>
+        <input type="number" id="maxVisible" class="control-input" value="100" min="1" max="500">
+      </div>
+      <button id="toggleBtn">
+        <i class="fas fa-play"></i> 开始弹窗
+      </button>
+      <button id="clearBtn">
+        <i class="fas fa-trash"></i> 清除所有
+      </button>
+      <div class="toggle-container">
+        <div class="control-label">自动隐藏界面</div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="autoHideToggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-container">
+        <div class="control-label">显示计数器</div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="counterToggle" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter" id="counter">
+    已生成: <span id="count">0</span> / <span id="totalCount">100</span> | 当前显示: <span id="visibleCount">0</span> / <span
+      id="maxVisibleCount">100</span>
+  </div>
+
+  <!-- 文案管理模态框 -->
+  <div class="modal" id="messageModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">文案管理 - <span id="modalCategoryName">全部</span></h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="message-list" id="messageList">
+        <!-- 文案列表将通过JavaScript动态生成 -->
+      </div>
+      <div class="add-message-form">
+        <input type="text" id="newMessageText" class="add-message-input" placeholder="输入新文案">
+        <button id="addMessageBtn">添加</button>
+      </div>
+      <div class="emoji-selector" id="emojiSelector">
+        <!-- 表情选项将通过JavaScript动态生成 -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let messageLibrary = {
+      selfCare: [
+        { text: "你值得被爱", emoji: "💖" },
+        { text: "允许自己休息", emoji: "🛌" },
+        { text: "别苛责自己", emoji: "🕊️" },
+        { text: "好好吃饭睡觉", emoji: "🍚🌙" },
+        { text: "你已足够好", emoji: "🌟" },
+        { text: "慢一点也没关系", emoji: "🐌" },
+        { text: "情绪需要出口", emoji: "💧" },
+        { text: "爱自己优先", emoji: "🫶" },
+        { text: "不必事事完美", emoji: "✨" },
+        { text: "今天辛苦了", emoji: "🍵" },
+        { text: "给自己一个拥抱", emoji: "🤗" },
+        { text: "你的感受重要", emoji: "❤️" },
+        { text: "别透支自己", emoji: "🔋" },
+        { text: "静下来听听心", emoji: "🧘" },
+        { text: "你本就完整", emoji: "☯️" },
+        { text: "停一停也可以", emoji: "⏸️" },
+        { text: "别怕说不", emoji: "🚫" },
+        { text: "你值得轻松", emoji: "🌤️" },
+        { text: "内心柔软很美", emoji: "🌸" },
+        { text: "接纳不完美的你", emoji: "🌱" }
+      ],
+      gentlePresence: [
+        { text: "我一直在", emoji: "🕯️" },
+        { text: "你不用坚强", emoji: "🛡️" },
+        { text: "我懂你的累", emoji: "👂" },
+        { text: "慢慢说我在听", emoji: "💬" },
+        { text: "有我在呢", emoji: "🤝" },
+        { text: "你被看见了", emoji: "👁️" },
+        { text: "不孤单有我", emoji: "👫" },
+        { text: "情绪我都接住", emoji: "🫂" },
+        { text: "你值得被懂", emoji: "🧠" },
+        { text: "我陪你沉默", emoji: "🌌" },
+        { text: "别怕脆弱", emoji: "🦋" },
+        { text: "你的存在很暖", emoji: "☀️" },
+        { text: "回消息很快", emoji: "📱" },
+        { text: "你很重要", emoji: "💎" },
+        { text: "我信你", emoji: "🕊️" },
+        { text: "你值得被等", emoji: "⏳" },
+        { text: "安心做自己", emoji: "🏡" },
+        { text: "我为你留灯", emoji: "💡" },
+        { text: "你说话我爱听", emoji: "👂❤️" },
+        { text: "世界吵我护你", emoji: "🛡️🌙" }
+      ],
+      dailyWarmth: [
+        { text: "早餐要吃热的", emoji: "🥣" },
+        { text: "今晚早点睡", emoji: "😴" },
+        { text: "阳光真好", emoji: "☀️" },
+        { text: "花开了", emoji: "🌼" },
+        { text: "雨声很安心", emoji: "🌧️" },
+        { text: "路边有小猫", emoji: "🐱" },
+        { text: "云很温柔", emoji: "☁️" },
+        { text: "风吹过发梢", emoji: "🍃" },
+        { text: "一杯热茶就好", emoji: "🍵" },
+        { text: "今天有笑吗", emoji: "😊" },
+        { text: "路灯为你亮着", emoji: "🏮" },
+        { text: "被窝很暖", emoji: "🛏️" },
+        { text: "明天会晴", emoji: "🌈" },
+        { text: "小事也值得", emoji: "✨" },
+        { text: "日常即浪漫", emoji: "📸" },
+        { text: "心静自然凉", emoji: "🧘" },
+        { text: "脚步可以慢", emoji: "👣" },
+        { text: "烟火气最抚人", emoji: "🍲" },
+        { text: "一碗面的幸福", emoji: "🍜" },
+        { text: "世界偷偷爱你", emoji: "🌍💌" }
+      ],
+      innerStrength: [
+        { text: "你比想象中强", emoji: "💪" },
+        { text: "跌倒了再起", emoji: "🔄" },
+        { text: "光在你心里", emoji: "💡" },
+        { text: "坚持就有回响", emoji: "🔔" },
+        { text: "你正在成长", emoji: "🌱" },
+        { text: "风雨终会停", emoji: "🌤️" },
+        { text: "你的路独特", emoji: "🗺️" },
+        { text: "别低估自己", emoji: "👑" },
+        { text: "黑暗中有星", emoji: "🌌" },
+        { text: "一步也是前进", emoji: "🚶" },
+        { text: "你有选择权", emoji: "⚖️" },
+        { text: "时间会回答", emoji: "⏳" },
+        { text: "软弱也是勇气", emoji: "🕊️" },
+        { text: "你值得更好", emoji: "🌈" },
+        { text: "心定则不乱", emoji: "🧘" },
+        { text: "伤疤是勋章", emoji: "🎖️" },
+        { text: "你终将闪耀", emoji: "✨" },
+        { text: "低谷是转机", emoji: "📈" },
+        { text: "信念不灭", emoji: "🔥" },
+        { text: "你生来有光", emoji: "🌟" }
+      ],
+      authenticConnection: [
+        { text: "真诚最动人", emoji: "💎" },
+        { text: "做真实的你", emoji: "🎭➡️🙂" },
+        { text: "无需伪装", emoji: "🪞" },
+        { text: "信任很珍贵", emoji: "🤝" },
+        { text: "坦诚相见", emoji: "👁️🗨️" },
+        { text: "你本来就好", emoji: "🌼" },
+        { text: "不讨好也可爱", emoji: "🦄" },
+        { text: "真心换真心", emoji: "❤️↔️❤️" },
+        { text: "关系要舒服", emoji: "🛋️" },
+        { text: "你在就好", emoji: "📍" },
+        { text: "不必解释太多", emoji: "🤫" },
+        { text: "我喜欢你的真", emoji: "🥰" },
+        { text: "真实有力量", emoji: "⚡" },
+        { text: "情感要流动", emoji: "🌊" },
+        { text: "尊重彼此节奏", emoji: "⏳👣" },
+        { text: "懂比爱更难", emoji: "🧠❤️" },
+        { text: "你在我就安心", emoji: "🧘‍♀️" },
+        { text: "沉默也不尴尬", emoji: "☁️" },
+        { text: "你值得被珍惜", emoji: "🎁" },
+        { text: "关系贵在真诚", emoji: "🕊️" }
+      ],
+      mindfulLiving: [
+        { text: "此刻即礼物", emoji: "🎁" },
+        { text: "呼吸慢一点", emoji: "🌬️" },
+        { text: "少即是多", emoji: "➖" },
+        { text: "心安即是归处", emoji: "🏠" },
+        { text: "放下手机看看天", emoji: "📱➡️🌤️" },
+        { text: "专注当下", emoji: "🎯" },
+        { text: "简单就很美", emoji: "💮" },
+        { text: "别让焦虑偷走今天", emoji: "⏳🚫" },
+        { text: "感受此刻温度", emoji: "🌡️" },
+        { text: "慢食知味", emoji: "🥢" },
+        { text: "走路也修行", emoji: "🚶‍♂️" },
+        { text: "静默有力量", emoji: "🔇" },
+        { text: "少比较多自在", emoji: "🧘" },
+        { text: "心空才能装光", emoji: "🕳️✨" },
+        { text: "不急不躁", emoji: "🐢" },
+        { text: "活在呼吸间", emoji: "🌬️❤️" },
+        { text: "今日事今日悦", emoji: "📅😊" },
+        { text: "留白才有诗意", emoji: "📜" },
+        { text: "知足常乐", emoji: "😌" },
+        { text: "平凡日子里发光", emoji: "✨🧺" }
+      ]
+    };
+    // 扩展消息数组到200个以上
+    let allMessages = [];
+    Object.values(messageLibrary).forEach(category => {
+      allMessages = allMessages.concat(category);
+    });
+
+    // 确保至少有200条消息
+    while (allMessages.length < 200) {
+      allMessages = allMessages.concat(allMessages);
+    }
+    allMessages = allMessages.slice(0, 200);
+
+    // 颜色数组 - 柔和渐变色
+    const colors = [
+      "linear-gradient(135deg, rgba(255,154,162,0.8) 0%, rgba(255,183,178,0.8) 100%)",
+      "linear-gradient(135deg, rgba(255,218,193,0.8) 0%, rgba(226,240,203,0.8) 100%)",
+      "linear-gradient(135deg, rgba(181,234,215,0.8) 0%, rgba(199,206,234,0.8) 100%)",
+      "linear-gradient(135deg, rgba(248,177,149,0.8) 0%, rgba(246,114,128,0.8) 100%)",
+      "linear-gradient(135deg, rgba(192,108,132,0.8) 0%, rgba(108,91,123,0.8) 100%)",
+      "linear-gradient(135deg, rgba(106,17,203,0.8) 0%, rgba(37,117,252,0.8) 100%)",
+      "linear-gradient(135deg, rgba(255,107,107,0.8) 0%, rgba(255,181,70,0.8) 100%)",
+      "linear-gradient(135deg, rgba(72,198,239,0.8) 0%, rgba(111,134,214,0.8) 100%)",
+      "linear-gradient(135deg, rgba(253,203,110,0.8) 0%, rgba(213,153,196,0.8) 100%)",
+      "linear-gradient(135deg, rgba(116,235,213,0.8) 0%, rgba(159,172,230,0.8) 100%)"
+    ];
+
+    // 常用表情
+    const commonEmojis = ["😄", "🙏", "💪", "🌙", "🌈", "🍚", "🌍", "😊", "🤹", "❤️", "🌸", "🎮", "🧘", "📱", "🌟", "🌤️", "🌅", "💫", "⏳", "🍃", "🌿", "✨", "👫", "💞", "🐯", "💑", "🎑", "🌲", "💘", "🌹", "💍", "🌄", "☀️", "💊", "🏠", "⛰️", "🍵", "🍂", "⚡", "💡", "🌱", "🛣️", "⭐", "🌬️", "🛑", "👑", "🔮", "🎁", "🍀", "📦", "✅", "🎯", "🔄", "💃", "🔋", "🎆", "🍬", "💅", "📅"];
+
+    // DOM元素
+    const popupContainer = document.getElementById('popupContainer');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const countElement = document.getElementById('count');
+    const totalCountElement = document.getElementById('totalCount');
+    const visibleCountElement = document.getElementById('visibleCount');
+    const maxVisibleCountElement = document.getElementById('maxVisibleCount');
+    const popupCountInput = document.getElementById('popupCount');
+    const popupSpeedInput = document.getElementById('popupSpeed');
+    const maxVisibleInput = document.getElementById('maxVisible');
+    const autoHideToggle = document.getElementById('autoHideToggle');
+    const counterToggle = document.getElementById('counterToggle');
+    const counter = document.getElementById('counter');
+    const controlsPanel = document.getElementById('controlsPanel');
+    const customMessagesInput = document.getElementById('customMessages');
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const manageMessagesBtn = document.getElementById('manageMessagesBtn');
+    const messageModal = document.getElementById('messageModal');
+    const modalCategoryName = document.getElementById('modalCategoryName');
+    const messageList = document.getElementById('messageList');
+    const newMessageText = document.getElementById('newMessageText');
+    const addMessageBtn = document.getElementById('addMessageBtn');
+    const emojiSelector = document.getElementById('emojiSelector');
+    const closeModal = document.querySelector('.close-modal');
+
+    // 状态变量
+    let popupInterval;
+    let popupCount = 0;
+    let visiblePopupCount = 0;
+    let isRunning = false;
+    let totalPopupCount = 100;
+    let popupSpeed = 300;
+    let maxVisiblePopups = 100;
+    let hideTimeout;
+    let currentCategory = 'all';
+    let currentMessages = [...allMessages];
+    let selectedEmoji = "😊";
+    let managingCategory = 'all';
+    let lastFrameTime = 0;
+    const frameInterval = 16; // 约60fps
+
+    // 初始化
+    function init () {
+      updateTotalCountDisplay();
+      updateVisibleCount();
+      toggleCounter();
+      setupEventListeners();
+      populateEmojiSelector();
+
+      // 初始创建几个弹窗
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          createPopup();
+        }, i * 300);
+      }
+    }
+
+    // 设置事件监听器
+    function setupEventListeners () {
+      // 使用事件委托处理弹窗点击
+      popupContainer.addEventListener('click', function (e) {
+        const popup = e.target.closest('.popup');
+        if (!popup) return;
+
+        if (e.target.classList.contains('popup-close')) {
+          popup.remove();
+          visiblePopupCount--;
+          updateVisibleCount();
+        } else {
+          // 点击弹窗内容时放大显示
+          popup.style.transform = 'scale(1.2)';
+          popup.style.zIndex = '1000';
+          setTimeout(() => {
+            popup.style.transform = 'scale(1)';
+            popup.style.zIndex = '100';
+          }, 500);
+        }
+      });
+
+      // 控制按钮事件
+      toggleBtn.addEventListener('click', function () {
+        if (isRunning) {
+          pausePopups();
+        } else {
+          startPopups();
+        }
+      });
+
+      clearBtn.addEventListener('click', clearPopups);
+      autoHideToggle.addEventListener('change', toggleAutoHide);
+      counterToggle.addEventListener('change', toggleCounter);
+
+      // 分类标签点击事件
+      categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+          switchCategory(this.dataset.category);
+        });
+      });
+
+      // 自定义消息变化时更新当前消息列表
+      customMessagesInput.addEventListener('input', function () {
+        if (isRunning) {
+          updateCurrentMessages();
+        }
+      });
+
+      // 设置面板显示延迟
+      const controlsContainer = document.querySelector('.controls-container');
+      controlsContainer.addEventListener('mouseenter', function () {
+        clearTimeout(hideTimeout);
+        controlsPanel.style.display = 'flex';
+      });
+
+      controlsContainer.addEventListener('mouseleave', function () {
+        hideTimeout = setTimeout(function () {
+          controlsPanel.style.display = 'none';
+        }, 500);
+      });
+
+      // 文案管理相关事件
+      manageMessagesBtn.addEventListener('click', openMessageModal);
+      closeModal.addEventListener('click', closeMessageModal);
+      addMessageBtn.addEventListener('click', addNewMessage);
+
+      // 点击模态框外部关闭
+      window.addEventListener('click', function (e) {
+        if (e.target === messageModal) {
+          closeMessageModal();
+        }
+      });
+    }
+
+    // 填充表情选择器
+    function populateEmojiSelector () {
+      emojiSelector.innerHTML = '';
+      commonEmojis.forEach(emoji => {
+        const emojiOption = document.createElement('div');
+        emojiOption.className = 'emoji-option';
+        emojiOption.textContent = emoji;
+        emojiOption.addEventListener('click', function () {
+          // 移除之前选中的表情
+          document.querySelectorAll('.emoji-option').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          // 选中当前表情
+          this.classList.add('selected');
+          selectedEmoji = emoji;
+        });
+        emojiSelector.appendChild(emojiOption);
+      });
+
+      // 默认选中第一个表情
+      if (emojiSelector.firstChild) {
+        emojiSelector.firstChild.classList.add('selected');
+      }
+    }
+
+    // 打开文案管理模态框
+    function openMessageModal () {
+      managingCategory = currentCategory;
+      modalCategoryName.textContent = getCategoryName(managingCategory);
+      renderMessageList();
+      messageModal.style.display = 'block';
+    }
+
+    // 关闭文案管理模态框
+    function closeMessageModal () {
+      messageModal.style.display = 'none';
+    }
+
+    // 获取分类名称
+    function getCategoryName (category) {
+      const names = {
+        'all': '全部',
+        'classic': '古风',
+        'romantic': '浪漫',
+        'encouraging': '勉励',
+        'modern': '现代'
+      };
+      return names[category] || category;
+    }
+
+    // 渲染文案列表
+    function renderMessageList () {
+      messageList.innerHTML = '';
+      let messages = [];
+
+      if (managingCategory === 'all') {
+        // 显示所有分类的文案
+        Object.values(messageLibrary).forEach(categoryMessages => {
+          messages = messages.concat(categoryMessages);
+        });
+      } else {
+        messages = [...messageLibrary[managingCategory]];
+      }
+
+      messages.forEach((message, index) => {
+        const messageItem = document.createElement('div');
+        messageItem.className = 'message-item';
+        messageItem.innerHTML = `
+                    <div class="message-text">${message.emoji} ${message.text}</div>
+                    <div class="message-actions">
+                        <button class="message-action-btn edit-message" data-index="${index}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="message-action-btn delete-message" data-index="${index}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+        messageList.appendChild(messageItem);
+      });
+
+      // 添加编辑和删除事件
+      document.querySelectorAll('.edit-message').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const index = parseInt(this.dataset.index);
+          editMessage(index);
+        });
+      });
+
+      document.querySelectorAll('.delete-message').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const index = parseInt(this.dataset.index);
+          deleteMessage(index);
+        });
+      });
+    }
+
+    // 编辑文案
+    function editMessage (index) {
+      let messages = [];
+
+      if (managingCategory === 'all') {
+        // 获取所有分类的文案
+        Object.values(messageLibrary).forEach(categoryMessages => {
+          messages = messages.concat(categoryMessages);
+        });
+      } else {
+        messages = messageLibrary[managingCategory];
+      }
+
+      const message = messages[index];
+      const newText = prompt('编辑文案:', message.text);
+      if (newText !== null && newText.trim() !== '') {
+        message.text = newText.trim();
+        renderMessageList();
+        updateCurrentMessages();
+      }
+    }
+
+    // 删除文案
+    function deleteMessage (index) {
+      if (confirm('确定要删除这条文案吗？')) {
+        if (managingCategory === 'all') {
+          // 从所有分类中删除这条文案
+          Object.keys(messageLibrary).forEach(category => {
+            const categoryIndex = messageLibrary[category].findIndex(msg =>
+              msg.text === messages[index].text && msg.emoji === messages[index].emoji
+            );
+            if (categoryIndex !== -1) {
+              messageLibrary[category].splice(categoryIndex, 1);
+            }
+          });
+        } else {
+          messageLibrary[managingCategory].splice(index, 1);
+        }
+
+        renderMessageList();
+        updateCurrentMessages();
+      }
+    }
+
+    // 添加新文案
+    function addNewMessage () {
+      const text = newMessageText.value.trim();
+      if (text === '') {
+        alert('请输入文案内容');
+        return;
+      }
+
+      const newMessage = {
+        text: text,
+        emoji: selectedEmoji
+      };
+
+      if (managingCategory === 'all') {
+        // 添加到默认分类
+        if (!messageLibrary.default) {
+          messageLibrary.default = [];
+        }
+        messageLibrary.default.push(newMessage);
+      } else {
+        messageLibrary[managingCategory].push(newMessage);
+      }
+
+      newMessageText.value = '';
+      renderMessageList();
+      updateCurrentMessages();
+    }
+
+    // 更新总弹窗数显示
+    function updateTotalCountDisplay () {
+      totalCountElement.textContent = totalPopupCount;
+      maxVisibleCountElement.textContent = maxVisiblePopups;
+    }
+
+    // 切换分类
+    function switchCategory (category) {
+      currentCategory = category;
+
+      // 更新标签状态
+      categoryTabs.forEach(tab => {
+        if (tab.dataset.category === category) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+
+      updateCurrentMessages();
+    }
+
+    // 更新当前消息列表
+    function updateCurrentMessages () {
+      if (currentCategory === 'all') {
+        currentMessages = [];
+        Object.values(messageLibrary).forEach(category => {
+          currentMessages = currentMessages.concat(category);
+        });
+      } else {
+        currentMessages = [...messageLibrary[currentCategory]];
+      }
+
+      // 添加自定义消息
+      const customMessages = getCustomMessages();
+      if (customMessages.length > 0) {
+        currentMessages = currentMessages.concat(customMessages);
+      }
+    }
+
+    // 获取自定义消息
+    function getCustomMessages () {
+      const customText = customMessagesInput.value.trim();
+      if (!customText) return [];
+
+      return customText.split('\n')
+        .filter(line => line.trim().length > 0)
+        .map(line => {
+          return {
+            text: line.trim(),
+            emoji: "💫" // 默认表情
+          };
+        });
+    }
+
+    // 创建弹窗
+    function createPopup () {
+      if (popupCount >= totalPopupCount) {
+        pausePopups();
+        return;
+      }
+
+      // 检查当前可见弹窗数量
+      if (visiblePopupCount >= maxVisiblePopups) {
+        // 如果超过最大可见数量，移除最早的一个弹窗
+        const oldestPopup = popupContainer.firstChild;
+        if (oldestPopup) {
+          oldestPopup.remove();
+          visiblePopupCount--;
+          updateVisibleCount();
+        }
+      }
+
+      const popup = document.createElement('div');
+      popup.className = 'popup';
+
+      // 随机位置
+      const left = Math.floor(Math.random() * (window.innerWidth - 200));
+      const top = Math.floor(Math.random() * (window.innerHeight - 100));
+
+      // 随机样式
+      const messageIndex = Math.floor(Math.random() * currentMessages.length);
+      const message = currentMessages[messageIndex];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      popup.style.cssText = `
+                left: ${left}px;
+                top: ${top}px;
+                background: ${color};
+                animation: fadeIn 0.5s ease-out;
+            `;
+
+      // 添加内容
+      popup.innerHTML = `
+                <div class="popup-emoji">${message.emoji}</div>
+                <div class="popup-content">${message.text}</div>
+                <div class="popup-close">×</div>
+            `;
+
+      popupContainer.appendChild(popup);
+      visiblePopupCount++;
+      updateCount(1);
+      updateVisibleCount();
+    }
+
+    // 更新总生成计数器
+    function updateCount (change) {
+      popupCount += change;
+      countElement.textContent = popupCount;
+    }
+
+    // 更新可见弹窗计数器
+    function updateVisibleCount () {
+      visibleCountElement.textContent = visiblePopupCount;
+    }
+
+    // 开始弹窗
+    function startPopups () {
+      if (isRunning) return;
+
+      // 获取设置值
+      totalPopupCount = parseInt(popupCountInput.value) || 100;
+      popupSpeed = parseInt(popupSpeedInput.value) || 300;
+      maxVisiblePopups = parseInt(maxVisibleInput.value) || 100;
+
+      // 更新当前消息列表（包含自定义消息）
+      updateCurrentMessages();
+
+      // 更新显示
+      updateTotalCountDisplay();
+
+      isRunning = true;
+      popupInterval = setInterval(() => {
+        const now = performance.now();
+        if (now - lastFrameTime >= frameInterval) {
+          createPopup();
+          lastFrameTime = now;
+        }
+      }, popupSpeed);
+      toggleBtn.innerHTML = '<i class="fas fa-pause"></i> 暂停生成';
+    }
+
+    // 暂停弹窗
+    function pausePopups () {
+      clearInterval(popupInterval);
+      isRunning = false;
+      toggleBtn.innerHTML = '<i class="fas fa-play"></i> 继续生成';
+    }
+
+    // 清除所有弹窗
+    function clearPopups () {
+      popupContainer.innerHTML = '';
+      popupCount = 0;
+      visiblePopupCount = 0;
+      countElement.textContent = '0';
+      updateVisibleCount();
+    }
+
+    // 自动隐藏控制
+    function toggleAutoHide () {
+      if (autoHideToggle.checked) {
+        document.body.classList.add('auto-hide');
+      } else {
+        document.body.classList.remove('auto-hide');
+      }
+    }
+
+    // 计数器显示控制
+    function toggleCounter () {
+      if (counterToggle.checked) {
+        counter.style.display = 'block';
+      } else {
+        counter.style.display = 'none';
+      }
+    }
+
+    // 初始化应用
+    init();
+  </script>
+</body>
+
+</html>
