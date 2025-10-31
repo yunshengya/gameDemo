@@ -1,0 +1,7 @@
+name = "gamedemo"
+type = "assets"   # 表示这是静态站点
+
+account_id = "你的Cloudflare账号ID"  # 替换成你的 Cloudflare 账号 ID
+workers_dev = true
+
+site = { bucket = "./" }  # 指向 index.html 所在目录
