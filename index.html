@@ -613,6 +613,7 @@
         <div class="control-label">文案分类</div>
         <div class="category-tabs">
           <div class="category-tab active" data-category="all">全部</div>
+          <div class="category-tab" data-category="hot">热门</div>
           <div class="category-tab" data-category="classic">古风</div>
           <div class="category-tab" data-category="romantic">浪漫</div>
           <div class="category-tab" data-category="encouraging">勉励</div>
@@ -688,7 +689,268 @@
 
   <script>
     let messageLibrary = {
-      selfCare: [
+      classic: [
+        { text: "长风破浪会有时，直挂云帆济沧海", emoji: "🌊" },
+        { text: "天生我材必有用，千金散尽还复来", emoji: "🌟" },
+        { text: "会当凌绝顶，一览众山小", emoji: "⛰️" },
+        { text: "千淘万漉虽辛苦，吹尽狂沙始到金", emoji: "💪" },
+        { text: "宝剑锋从磨砺出，梅花香自苦寒来", emoji: "⚔️" },
+        { text: "沉舟侧畔千帆过，病树前头万木春", emoji: "🌱" },
+        { text: "山重水复疑无路，柳暗花明又一村", emoji: "🛣️" },
+        { text: "欲穷千里目，更上一层楼", emoji: "🏢" },
+        { text: "不经一番寒彻骨，怎得梅花扑鼻香", emoji: "❄️" },
+        { text: "路漫漫其修远兮，吾将上下而求索", emoji: "🛣️" },
+        { text: "人生得意须尽欢，莫使金樽空对月", emoji: "🍷" },
+        { text: "天生傲骨怎能服输，壮志凌云永不言弃", emoji: "🦅" },
+        { text: "海到无边天作岸，山登绝顶我为峰", emoji: "🌅" },
+        { text: "雄关漫道真如铁，而今迈步从头越", emoji: "🚶" },
+        { text: "千磨万击还坚劲，任尔东西南北风", emoji: "🎋" },
+        { text: "少年易老学难成，一寸光阴不可轻", emoji: "⏳" },
+        { text: "纸上得来终觉浅，绝知此事要躬行", emoji: "📚" },
+        { text: "不畏浮云遮望眼，自缘身在最高层", emoji: "☁️" },
+        { text: "咬定青山不放松，立根原在破岩中", emoji: "🎍" },
+        { text: "春风得意马蹄疾，一日看尽长安花", emoji: "🐎" },
+        // 新增50条激励性古诗
+        { text: "莫愁前路无知己，天下谁人不识君", emoji: "🤝" },
+        { text: "仰天大笑出门去，我辈岂是蓬蒿人", emoji: "😄" },
+        { text: "黄沙百战穿金甲，不破楼兰终不还", emoji: "🛡️" },
+        { text: "男儿何不带吴钩，收取关山五十州", emoji: "🗡️" },
+        { text: "壮志饥餐胡虏肉，笑谈渴饮匈奴血", emoji: "💪" },
+        { text: "生当作人杰，死亦为鬼雄", emoji: "👑" },
+        { text: "粉身碎骨浑不怕，要留清白在人间", emoji: "⚪" },
+        { text: "人生自古谁无死，留取丹心照汗青", emoji: "❤️" },
+        { text: "老骥伏枥，志在千里", emoji: "🐎" },
+        { text: "烈士暮年，壮心不已", emoji: "🔥" },
+        { text: "乘风破浪会有时，直挂云帆济沧海", emoji: "⛵" },
+        { text: "大鹏一日同风起，扶摇直上九万里", emoji: "🦅" },
+        { text: "天生一个仙人洞，无限风光在险峰", emoji: "🏔️" },
+        { text: "为有牺牲多壮志，敢教日月换新天", emoji: "☀️" },
+        { text: "世上无难事，只要肯登攀", emoji: "🧗" },
+        { text: "不到长城非好汉，屈指行程二万", emoji: "🏯" },
+        { text: "红军不怕远征难，万水千山只等闲", emoji: "🚩" },
+        { text: "今日长缨在手，何时缚住苍龙", emoji: "🐉" },
+        { text: "宜将剩勇追穷寇，不可沽名学霸王", emoji: "⚔️" },
+        { text: "天若有情天亦老，人间正道是沧桑", emoji: "🌍" },
+        { text: "金猴奋起千钧棒，玉宇澄清万里埃", emoji: "🐒" },
+        { text: "独有英雄驱虎豹，更无豪杰怕熊罴", emoji: "🐯" },
+        { text: "四海翻腾云水怒，五洲震荡风雷激", emoji: "🌊" },
+        { text: "可上九天揽月，可下五洋捉鳖", emoji: "🌙" },
+        { text: "世上无难事，只怕有心人", emoji: "💡" },
+        { text: "宝剑赠英雄，红粉送佳人", emoji: "⚔️" },
+        { text: "十年磨一剑，霜刃未曾试", emoji: "🗡️" },
+        { text: "宁为玉碎，不为瓦全", emoji: "💎" },
+        { text: "疾风知劲草，板荡识诚臣", emoji: "🌾" },
+        { text: "时危见臣节，世乱识忠良", emoji: "🛡️" },
+        { text: "捐躯赴国难，视死忽如归", emoji: "🇨🇳" },
+        { text: "丈夫志四海，万里犹比邻", emoji: "🌍" },
+        { text: "刑天舞干戚，猛志固常在", emoji: "💪" },
+        { text: "精卫衔微木，将以填沧海", emoji: "🐦" },
+        { text: "少壮不努力，老大徒伤悲", emoji: "📚" },
+        { text: "盛年不重来，一日难再晨", emoji: "🌅" },
+        { text: "及时当勉励，岁月不待人", emoji: "⏰" },
+        { text: "志士惜日短，愁人知夜长", emoji: "🕯️" },
+        { text: "莫等闲，白了少年头，空悲切", emoji: "👨" },
+        { text: "三十功名尘与土，八千里路云和月", emoji: "🌙" },
+        { text: "壮心未与年俱老，死去犹能作鬼雄", emoji: "👻" },
+        { text: "位卑未敢忘忧国，事定犹须待阖棺", emoji: "🇨🇳" },
+        { text: "出师未捷身先死，长使英雄泪满襟", emoji: "😢" },
+        { text: "苟利国家生死以，岂因祸福避趋之", emoji: "🛡️" },
+        { text: "我自横刀向天笑，去留肝胆两昆仑", emoji: "🗡️" },
+        { text: "拼将十万头颅血，须把乾坤力挽回", emoji: "💥" },
+        { text: "一腔热血勤珍重，洒去犹能化碧涛", emoji: "💧" },
+        { text: "面壁十年图破壁，难酬蹈海亦英雄", emoji: "🧱" },
+        { text: "为中华之崛起而读书", emoji: "📖" }
+      ],
+      romantic: [
+        { text: "执子之手与子偕老", emoji: "👫" },
+        { text: "愿得一人心白首不相离", emoji: "💞" },
+        { text: "心有灵犀一点通", emoji: "💘" },
+        { text: "在天愿作比翼鸟", emoji: "🐦" },
+        { text: "今生有你万事足", emoji: "🥰" },
+        { text: "只愿君心似我心", emoji: "💑" },
+        { text: "你是我的光与热", emoji: "✨" },
+        { text: "爱你如初不改初心", emoji: "💖" },
+        { text: "相濡以沫共度余生", emoji: "🌊" },
+        { text: "你是我此生最美的风景", emoji: "🏞️" },
+        // 新增50条激励性浪漫文案
+        { text: "爱情让平凡的日子闪闪发光", emoji: "✨" },
+        { text: "因为有你，我成为了更好的自己", emoji: "🌟" },
+        { text: "真爱能战胜一切困难", emoji: "🛡️" },
+        { text: "我们的爱是彼此最坚强的后盾", emoji: "💪" },
+        { text: "携手同行，共创美好未来", emoji: "🤝" },
+        { text: "你让我相信爱情的力量", emoji: "💖" },
+        { text: "真爱无畏风雨，勇往直前", emoji: "🌧️" },
+        { text: "我们的故事值得被永远铭记", emoji: "📖" },
+        { text: "你是我奋斗的最大动力", emoji: "⚡" },
+        { text: "因为有爱，所以无所畏惧", emoji: "🦁" },
+        { text: "爱情让我们变得更勇敢", emoji: "🛡️" },
+        { text: "你是我生命中最美的奇迹", emoji: "🎁" },
+        { text: "真爱能治愈一切伤痛", emoji: "💊" },
+        { text: "我们的爱会创造无限可能", emoji: "∞" },
+        { text: "你让我看到了更广阔的世界", emoji: "🌍" },
+        { text: "爱情是最好的成长催化剂", emoji: "🧪" },
+        { text: "我们的未来充满希望和光明", emoji: "🔆" },
+        { text: "真爱让我们彼此成就", emoji: "🏆" },
+        { text: "你是我最珍贵的财富", emoji: "💎" },
+        { text: "爱情让平凡变得非凡", emoji: "🎭" },
+        { text: "我们的爱会越来越深厚", emoji: "📈" },
+        { text: "你让我相信永恒的存在", emoji: "⏳" },
+        { text: "真爱能跨越一切障碍", emoji: "🚧" },
+        { text: "我们的故事才刚刚开始", emoji: "🎬" },
+        { text: "你是我前进的方向", emoji: "🧭" },
+        { text: "爱情让我们无所不能", emoji: "🦸" },
+        { text: "我们的爱会温暖整个世界", emoji: "🌡️" },
+        { text: "你是我最坚实的依靠", emoji: "🏗️" },
+        { text: "真爱让我们永不言弃", emoji: "🚩" },
+        { text: "我们的未来由我们创造", emoji: "🔨" },
+        { text: "你让我看到了无限可能", emoji: "♾️" },
+        { text: "爱情是最好的精神食粮", emoji: "🍎" },
+        { text: "我们的爱会照亮前路", emoji: "💡" },
+        { text: "你是我最强大的动力", emoji: "⚙️" },
+        { text: "真爱让我们勇攀高峰", emoji: "🏔️" },
+        { text: "我们的故事激励着彼此", emoji: "📣" },
+        { text: "你让我相信梦想会成真", emoji: "🌠" },
+        { text: "爱情让生活充满色彩", emoji: "🎨" },
+        { text: "我们的爱会创造奇迹", emoji: "✨" },
+        { text: "你是我最美好的遇见", emoji: "🎯" },
+        { text: "真爱让我们超越自我", emoji: "🚀" },
+        { text: "我们的未来无限光明", emoji: "🔆" },
+        { text: "你让我变得无所畏惧", emoji: "🦸" },
+        { text: "爱情是最好的心灵良药", emoji: "💊" },
+        { text: "我们的爱会感动天地", emoji: "🌍" },
+        { text: "你是我最珍贵的礼物", emoji: "🎁" },
+        { text: "真爱让我们永葆青春", emoji: "👶" },
+        { text: "我们的故事永不完结", emoji: "📚" },
+        { text: "你让我相信真爱的力量", emoji: "💪" },
+        { text: "爱情让生命更有意义", emoji: "💫" }
+      ],
+      encouraging: [
+        { text: "你比想象中更强大", emoji: "💪" },
+        { text: "坚持就是胜利", emoji: "🏆" },
+        { text: "未来可期请别放弃", emoji: "🔮" },
+        { text: "每一天都是新的开始", emoji: "🌅" },
+        { text: "你值得所有美好", emoji: "✨" },
+        { text: "勇敢追逐你的梦想", emoji: "🚀" },
+        { text: "阳光总在风雨后", emoji: "🌈" },
+        { text: "你是独一无二的存在", emoji: "🌟" },
+        { text: "微笑面对每一天", emoji: "😊" },
+        { text: "困难只是暂时的", emoji: "⏳" },
+        // 新增50条激励性鼓励文案
+        { text: "你的潜力超乎你的想象", emoji: "🚀" },
+        { text: "每一次努力都在积累成功", emoji: "📈" },
+        { text: "相信自己，你能做到", emoji: "👍" },
+        { text: "挫折是成功的垫脚石", emoji: "🪜" },
+        { text: "你的坚持终将美好", emoji: "🌅" },
+        { text: "不要被困难定义，要定义困难", emoji: "🎯" },
+        { text: "你正在成为更好的自己", emoji: "🌟" },
+        { text: "今天的汗水是明天的辉煌", emoji: "💦" },
+        { text: "你的努力不会被辜负", emoji: "⚖️" },
+        { text: "勇敢迈出第一步就是成功", emoji: "👣" },
+        { text: "你的价值不需要他人定义", emoji: "💎" },
+        { text: "每一次尝试都离成功更近", emoji: "🎯" },
+        { text: "你是自己人生的主角", emoji: "🎬" },
+        { text: "困难只是暂时的，成就是永恒的", emoji: "⏳" },
+        { text: "你的独特就是你的力量", emoji: "🦄" },
+        { text: "不要让恐惧阻止你前进", emoji: "🚫" },
+        { text: "你比自己想象的更坚强", emoji: "💪" },
+        { text: "成功属于永不放弃的人", emoji: "🚩" },
+        { text: "你的梦想值得你全力以赴", emoji: "🎯" },
+        { text: "每一次跌倒都是为了更好的站起", emoji: "🔄" },
+        { text: "你是生命中最美的风景", emoji: "🏞️" },
+        { text: "坚持到底就是胜利", emoji: "🏁" },
+        { text: "你的努力正在改变未来", emoji: "🔮" },
+        { text: "不要低估自己的潜力", emoji: "📊" },
+        { text: "你是无限可能的创造者", emoji: "♾️" },
+        { text: "勇敢追求心中的梦想", emoji: "💫" },
+        { text: "你的坚持感动着世界", emoji: "🌍" },
+        { text: "每一次进步都值得庆祝", emoji: "🎉" },
+        { text: "你是希望的播种者", emoji: "🌱" },
+        { text: "不要让任何人否定你的价值", emoji: "❌" },
+        { text: "你的光芒终将被看见", emoji: "💡" },
+        { text: "坚持梦想，永不放弃", emoji: "🌠" },
+        { text: "你是勇敢的追梦人", emoji: "🦸" },
+        { text: "每一次努力都在塑造更好的你", emoji: "🔨" },
+        { text: "你的热情能点燃世界", emoji: "🔥" },
+        { text: "不要害怕失败，害怕不尝试", emoji: "😨" },
+        { text: "你是生命的奇迹", emoji: "✨" },
+        { text: "坚持信念，终见光明", emoji: "💡" },
+        { text: "你的勇气感染着他人", emoji: "🦠" },
+        { text: "每一次挑战都是成长的机会", emoji: "🌱" },
+        { text: "你是命运的掌舵者", emoji: "🧭" },
+        { text: "不要被困难吓倒，要吓倒困难", emoji: "👻" },
+        { text: "你的坚持终将开花结果", emoji: "🌺" },
+        { text: "勇敢做自己，无需他人认可", emoji: "👤" },
+        { text: "你是希望的象征", emoji: "🕊️" },
+        { text: "每一次努力都在创造历史", emoji: "📜" },
+        { text: "你的梦想正在实现", emoji: "🎯" },
+        { text: "不要停止前进的脚步", emoji: "👣" },
+        { text: "你是光明的使者", emoji: "🔦" },
+        { text: "坚持到底，胜利在望", emoji: "🏆" }
+      ],
+      modern: [
+        { text: "今天也要闪闪发光", emoji: "✨" },
+        { text: "你是人间值得", emoji: "💫" },
+        { text: "生活明朗万物可爱", emoji: "🐾" },
+        { text: "保持热爱奔赴山海", emoji: "🗺️" },
+        { text: "最好的状态是未来可期", emoji: "🔮" },
+        { text: "把耐心留住惊喜慢慢来", emoji: "🕰️" },
+        { text: "你逆光而来配得美好", emoji: "👑" },
+        { text: "世事千帆过前方终会温柔", emoji: "🌙" },
+        { text: "知足且坚定温柔且上进", emoji: "🌱" },
+        { text: "万物皆有裂痕那是光照进来的地方", emoji: "💡" },
+        // 新增50条激励性现代文案
+        { text: "你的努力正在被世界看见", emoji: "👀" },
+        { text: "勇敢做自己，世界因你不同", emoji: "🌍" },
+        { text: "每一次坚持都在改写命运", emoji: "📝" },
+        { text: "你是新时代的追光者", emoji: "🔦" },
+        { text: "梦想不会逃跑，会逃跑的永远是自己", emoji: "🏃" },
+        { text: "你的独特是最大的竞争力", emoji: "🎯" },
+        { text: "不要被定义，要重新定义", emoji: "🔄" },
+        { text: "你是自己人生的CEO", emoji: "👨‍💼" },
+        { text: "坚持热爱，终会发光", emoji: "💎" },
+        { text: "你的价值由自己决定", emoji: "⚖️" },
+        { text: "勇敢打破舒适区", emoji: "🚧" },
+        { text: "你是无限可能的代名词", emoji: "∞" },
+        { text: "每一次尝试都在拓展边界", emoji: "🗺️" },
+        { text: "不要等待机会，要创造机会", emoji: "🔨" },
+        { text: "你是生活的艺术家", emoji: "🎨" },
+        { text: "坚持做对的事，时间会证明一切", emoji: "⏰" },
+        { text: "你的潜力需要被激发", emoji: "⚡" },
+        { text: "不要害怕改变，要拥抱变化", emoji: "🔄" },
+        { text: "你是未来的建造者", emoji: "🏗️" },
+        { text: "每一次突破都在创造历史", emoji: "📜" },
+        { text: "勇敢发声，你的声音很重要", emoji: "🗣️" },
+        { text: "你是希望的传播者", emoji: "📡" },
+        { text: "坚持初心，方得始终", emoji: "🎯" },
+        { text: "你的能量超乎想象", emoji: "🔋" },
+        { text: "不要被标签限制，要打破标签", emoji: "🏷️" },
+        { text: "你是时代的弄潮儿", emoji: "🌊" },
+        { text: "每一次努力都在推动进步", emoji: "📈" },
+        { text: "勇敢追梦，不负韶华", emoji: "🌠" },
+        { text: "你是光明的引领者", emoji: "💡" },
+        { text: "坚持信念，终见彩虹", emoji: "🌈" },
+        { text: "你的创造力改变世界", emoji: "🎨" },
+        { text: "不要畏惧失败，要感谢尝试", emoji: "🙏" },
+        { text: "你是梦想的实现者", emoji: "🌟" },
+        { text: "每一次坚持都在积累力量", emoji: "💪" },
+        { text: "勇敢创新，敢于不同", emoji: "💡" },
+        { text: "你是希望的种子", emoji: "🌱" },
+        { text: "坚持到底，终见曙光", emoji: "🌅" },
+        { text: "你的热情感染他人", emoji: "🔥" },
+        { text: "不要被困难吓倒，要战胜困难", emoji: "⚔️" },
+        { text: "你是生命的勇士", emoji: "🛡️" },
+        { text: "每一次努力都在书写传奇", emoji: "📖" },
+        { text: "勇敢前行，无所畏惧", emoji: "🚶" },
+        { text: "你是希望的灯塔", emoji: "🗼" },
+        { text: "坚持梦想，终会实现", emoji: "🎯" },
+        { text: "你的坚持感动人心", emoji: "💖" },
+        { text: "不要停止学习，要持续成长", emoji: "📚" },
+        { text: "你是时代的见证者", emoji: "👁️" },
+        { text: "每一次努力都在创造价值", emoji: "💰" },
+        { text: "勇敢爱，勇敢生活", emoji: "❤️" },
+        { text: "你是最美的风景", emoji: "🏞️" }
+      ],
+      hot: [
         { text: "你值得被爱", emoji: "💖" },
         { text: "允许自己休息", emoji: "🛌" },
         { text: "别苛责自己", emoji: "🕊️" },
@@ -708,117 +970,117 @@
         { text: "别怕说不", emoji: "🚫" },
         { text: "你值得轻松", emoji: "🌤️" },
         { text: "内心柔软很美", emoji: "🌸" },
-        { text: "接纳不完美的你", emoji: "🌱" }
-      ],
-      gentlePresence: [
-        { text: "我一直在", emoji: "🕯️" },
-        { text: "你不用坚强", emoji: "🛡️" },
-        { text: "我懂你的累", emoji: "👂" },
-        { text: "慢慢说我在听", emoji: "💬" },
-        { text: "有我在呢", emoji: "🤝" },
-        { text: "你被看见了", emoji: "👁️" },
-        { text: "不孤单有我", emoji: "👫" },
-        { text: "情绪我都接住", emoji: "🫂" },
-        { text: "你值得被懂", emoji: "🧠" },
-        { text: "我陪你沉默", emoji: "🌌" },
-        { text: "别怕脆弱", emoji: "🦋" },
-        { text: "你的存在很暖", emoji: "☀️" },
-        { text: "回消息很快", emoji: "📱" },
+        { text: "接纳不完美的你", emoji: "🌱" },
+        // 新增热门短文案
+        { text: "天天开心", emoji: "😊" },
+        { text: "谢谢你", emoji: "🙏" },
+        { text: "做最棒的自己", emoji: "💪" },
+        { text: "不要熬夜", emoji: "🌙" },
+        { text: "没有烦恼", emoji: "🌈" },
+        { text: "好好吃饭", emoji: "🍚" },
+        { text: "世界很大 开心第一", emoji: "🌍" },
+        { text: "可爱", emoji: "🐰" },
+        { text: "有趣", emoji: "🎭" },
+        { text: "真诚", emoji: "💎" },
+        { text: "温柔", emoji: "🌷" },
+        { text: "游戏很厉害", emoji: "🎮" },
+        { text: "情绪稳定", emoji: "⚖️" },
+        { text: "会回消息", emoji: "📱" },
+        { text: "你本来就是一个很好的人", emoji: "✨" },
+        { text: "你很特别", emoji: "⭐" },
+        { text: "保持微笑", emoji: "😄" },
+        { text: "你很优秀", emoji: "🏆" },
+        { text: "相信自己", emoji: "👍" },
+        { text: "你很勇敢", emoji: "🦸" },
+        { text: "一切都会好的", emoji: "🌤️" },
+        { text: "你很努力", emoji: "💪" },
+        { text: "放松一下", emoji: "🎵" },
+        { text: "你很温暖", emoji: "☀️" },
+        { text: "慢慢来", emoji: "🐢" },
+        { text: "你很聪明", emoji: "💡" },
+        { text: "照顾好自己", emoji: "❤️" },
+        { text: "你很坚强", emoji: "🛡️" },
+        { text: "别太累", emoji: "💤" },
+        { text: "你很善良", emoji: "🕊️" },
+        { text: "开心最重要", emoji: "🎉" },
+        { text: "你很独特", emoji: "🦄" },
+        { text: "享受当下", emoji: "⏳" },
+        { text: "你很棒", emoji: "👏" },
+        { text: "别想太多", emoji: "🧠" },
         { text: "你很重要", emoji: "💎" },
-        { text: "我信你", emoji: "🕊️" },
-        { text: "你值得被等", emoji: "⏳" },
-        { text: "安心做自己", emoji: "🏡" },
-        { text: "我为你留灯", emoji: "💡" },
-        { text: "你说话我爱听", emoji: "👂❤️" },
-        { text: "世界吵我护你", emoji: "🛡️🌙" }
-      ],
-      dailyWarmth: [
-        { text: "早餐要吃热的", emoji: "🥣" },
-        { text: "今晚早点睡", emoji: "😴" },
-        { text: "阳光真好", emoji: "☀️" },
-        { text: "花开了", emoji: "🌼" },
-        { text: "雨声很安心", emoji: "🌧️" },
-        { text: "路边有小猫", emoji: "🐱" },
-        { text: "云很温柔", emoji: "☁️" },
-        { text: "风吹过发梢", emoji: "🍃" },
-        { text: "一杯热茶就好", emoji: "🍵" },
-        { text: "今天有笑吗", emoji: "😊" },
-        { text: "路灯为你亮着", emoji: "🏮" },
-        { text: "被窝很暖", emoji: "🛏️" },
-        { text: "明天会晴", emoji: "🌈" },
-        { text: "小事也值得", emoji: "✨" },
-        { text: "日常即浪漫", emoji: "📸" },
-        { text: "心静自然凉", emoji: "🧘" },
-        { text: "脚步可以慢", emoji: "👣" },
-        { text: "烟火气最抚人", emoji: "🍲" },
-        { text: "一碗面的幸福", emoji: "🍜" },
-        { text: "世界偷偷爱你", emoji: "🌍💌" }
-      ],
-      innerStrength: [
-        { text: "你比想象中强", emoji: "💪" },
-        { text: "跌倒了再起", emoji: "🔄" },
-        { text: "光在你心里", emoji: "💡" },
-        { text: "坚持就有回响", emoji: "🔔" },
-        { text: "你正在成长", emoji: "🌱" },
-        { text: "风雨终会停", emoji: "🌤️" },
-        { text: "你的路独特", emoji: "🗺️" },
-        { text: "别低估自己", emoji: "👑" },
-        { text: "黑暗中有星", emoji: "🌌" },
-        { text: "一步也是前进", emoji: "🚶" },
-        { text: "你有选择权", emoji: "⚖️" },
-        { text: "时间会回答", emoji: "⏳" },
-        { text: "软弱也是勇气", emoji: "🕊️" },
-        { text: "你值得更好", emoji: "🌈" },
-        { text: "心定则不乱", emoji: "🧘" },
-        { text: "伤疤是勋章", emoji: "🎖️" },
-        { text: "你终将闪耀", emoji: "✨" },
-        { text: "低谷是转机", emoji: "📈" },
-        { text: "信念不灭", emoji: "🔥" },
-        { text: "你生来有光", emoji: "🌟" }
-      ],
-      authenticConnection: [
-        { text: "真诚最动人", emoji: "💎" },
-        { text: "做真实的你", emoji: "🎭➡️🙂" },
-        { text: "无需伪装", emoji: "🪞" },
-        { text: "信任很珍贵", emoji: "🤝" },
-        { text: "坦诚相见", emoji: "👁️🗨️" },
-        { text: "你本来就好", emoji: "🌼" },
-        { text: "不讨好也可爱", emoji: "🦄" },
-        { text: "真心换真心", emoji: "❤️↔️❤️" },
-        { text: "关系要舒服", emoji: "🛋️" },
-        { text: "你在就好", emoji: "📍" },
-        { text: "不必解释太多", emoji: "🤫" },
-        { text: "我喜欢你的真", emoji: "🥰" },
-        { text: "真实有力量", emoji: "⚡" },
-        { text: "情感要流动", emoji: "🌊" },
-        { text: "尊重彼此节奏", emoji: "⏳👣" },
-        { text: "懂比爱更难", emoji: "🧠❤️" },
-        { text: "你在我就安心", emoji: "🧘‍♀️" },
-        { text: "沉默也不尴尬", emoji: "☁️" },
-        { text: "你值得被珍惜", emoji: "🎁" },
-        { text: "关系贵在真诚", emoji: "🕊️" }
-      ],
-      mindfulLiving: [
-        { text: "此刻即礼物", emoji: "🎁" },
-        { text: "呼吸慢一点", emoji: "🌬️" },
-        { text: "少即是多", emoji: "➖" },
-        { text: "心安即是归处", emoji: "🏠" },
-        { text: "放下手机看看天", emoji: "📱➡️🌤️" },
-        { text: "专注当下", emoji: "🎯" },
-        { text: "简单就很美", emoji: "💮" },
-        { text: "别让焦虑偷走今天", emoji: "⏳🚫" },
-        { text: "感受此刻温度", emoji: "🌡️" },
-        { text: "慢食知味", emoji: "🥢" },
-        { text: "走路也修行", emoji: "🚶‍♂️" },
-        { text: "静默有力量", emoji: "🔇" },
-        { text: "少比较多自在", emoji: "🧘" },
-        { text: "心空才能装光", emoji: "🕳️✨" },
-        { text: "不急不躁", emoji: "🐢" },
-        { text: "活在呼吸间", emoji: "🌬️❤️" },
-        { text: "今日事今日悦", emoji: "📅😊" },
-        { text: "留白才有诗意", emoji: "📜" },
-        { text: "知足常乐", emoji: "😌" },
-        { text: "平凡日子里发光", emoji: "✨🧺" }
+        { text: "深呼吸", emoji: "💨" },
+        { text: "你很可爱", emoji: "🐶" },
+        { text: "放轻松", emoji: "🌊" },
+        { text: "你很美好", emoji: "🌸" },
+        { text: "笑一笑", emoji: "😊" },
+        { text: "你很珍贵", emoji: "💎" },
+        { text: "别着急", emoji: "⏰" },
+        { text: "你很出色", emoji: "🎯" },
+        { text: "休息一下", emoji: "🛋️" },
+        { text: "你很了不起", emoji: "🌟" },
+        { text: "慢慢走", emoji: "🚶" },
+        { text: "你很耀眼", emoji: "✨" },
+        { text: "别担心", emoji: "🤗" },
+        { text: "你很完美", emoji: "💫" },
+        { text: "放空一下", emoji: "☁️" },
+        { text: "你很强大", emoji: "⚡" },
+        { text: "享受生活", emoji: "🎨" },
+        { text: "你很温柔", emoji: "🌙" },
+        { text: "别放弃", emoji: "🚩" },
+        { text: "你很美丽", emoji: "🌹" },
+        { text: "向前看", emoji: "👀" },
+        { text: "你很勇敢", emoji: "🦁" },
+        { text: "活在当下", emoji: "🎯" },
+        { text: "你很坚强", emoji: "💎" },
+        { text: "别比较", emoji: "⚖️" },
+        { text: "你很优秀", emoji: "🎓" },
+        { text: "做自己", emoji: "👤" },
+        { text: "你很温暖", emoji: "🔥" },
+        { text: "爱自己", emoji: "💝" },
+        { text: "你很特别", emoji: "🎁" },
+        { text: "别勉强", emoji: "🕊️" },
+        { text: "你很美好", emoji: "🌈" },
+        { text: "慢慢来", emoji: "🐌" },
+        { text: "你很珍贵", emoji: "💎" },
+        { text: "开心点", emoji: "😄" },
+        { text: "你很棒", emoji: "👍" },
+        { text: "放松点", emoji: "🌴" },
+        { text: "你很优秀", emoji: "🏅" },
+        { text: "别紧张", emoji: "🧘" },
+        { text: "你很独特", emoji: "🦋" },
+        { text: "享受此刻", emoji: "⏰" },
+        { text: "你很美好", emoji: "🌺" },
+        { text: "别焦虑", emoji: "🌊" },
+        { text: "你很完美", emoji: "💫" },
+        { text: "深呼吸", emoji: "💨" },
+        { text: "你很耀眼", emoji: "✨" },
+        { text: "放轻松", emoji: "🎈" },
+        { text: "你很强大", emoji: "💪" },
+        { text: "慢慢来", emoji: "🐢" },
+        { text: "你很温暖", emoji: "☀️" },
+        { text: "别着急", emoji: "⏳" },
+        { text: "你很珍贵", emoji: "💎" },
+        { text: "休息下", emoji: "🛌" },
+        { text: "你很美好", emoji: "🌸" },
+        { text: "开心笑", emoji: "😊" },
+        { text: "你很特别", emoji: "⭐" },
+        { text: "放空下", emoji: "☁️" },
+        { text: "你很完美", emoji: "💖" },
+        { text: "慢慢走", emoji: "🚶" },
+        { text: "你很耀眼", emoji: "🌟" },
+        { text: "别担心", emoji: "🤗" },
+        { text: "你很强大", emoji: "⚡" },
+        { text: "享受吧", emoji: "🎉" },
+        { text: "你很温暖", emoji: "🔥" },
+        { text: "爱自己", emoji: "💝" },
+        { text: "你很优秀", emoji: "🎯" },
+        { text: "做自己", emoji: "👤" },
+        { text: "你很美好", emoji: "🌈" },
+        { text: "别比较", emoji: "⚖️" },
+        { text: "你很珍贵", emoji: "💎" },
+        { text: "向前看", emoji: "👀" },
+        { text: "你很完美", emoji: "💫" },
+        { text: "活在当下", emoji: "🎯" }
       ]
     };
     // 扩展消息数组到200个以上
@@ -891,9 +1153,66 @@
     let managingCategory = 'all';
     let lastFrameTime = 0;
     const frameInterval = 16; // 约60fps
+    // 保存设置到本地存储
+    function saveSettings () {
+      const settings = {
+        currentCategory: currentCategory,
+        popupCount: document.getElementById('popupCount').value,
+        popupSpeed: document.getElementById('popupSpeed').value,
+        maxVisible: document.getElementById('maxVisible').value,
+        autoHide: document.getElementById('autoHideToggle').checked,
+        counterVisible: document.getElementById('counterToggle').checked,
+        customMessages: document.getElementById('customMessages').value
+      };
+      localStorage.setItem('blessingPopupSettings', JSON.stringify(settings));
+    }
 
+    // 从本地存储加载设置
+    function loadSettings () {
+      const saved = localStorage.getItem('blessingPopupSettings');
+      if (saved) {
+        const settings = JSON.parse(saved);
+
+        // 恢复分类选择
+        if (settings.currentCategory) {
+          currentCategory = settings.currentCategory;
+          // 更新分类标签状态
+          categoryTabs.forEach(tab => {
+            if (tab.dataset.category === currentCategory) {
+              tab.classList.add('active');
+            } else {
+              tab.classList.remove('active');
+            }
+          });
+        }
+
+        // 恢复数值设置
+        if (settings.popupCount) document.getElementById('popupCount').value = settings.popupCount;
+        if (settings.popupSpeed) document.getElementById('popupSpeed').value = settings.popupSpeed;
+        if (settings.maxVisible) document.getElementById('maxVisible').value = settings.maxVisible;
+
+        // 恢复开关状态
+        if (settings.autoHide !== undefined) {
+          document.getElementById('autoHideToggle').checked = settings.autoHide;
+          toggleAutoHide(); // 应用设置
+        }
+        if (settings.counterVisible !== undefined) {
+          document.getElementById('counterToggle').checked = settings.counterVisible;
+          toggleCounter(); // 应用设置
+        }
+
+        // 恢复自定义消息
+        if (settings.customMessages) {
+          document.getElementById('customMessages').value = settings.customMessages;
+        }
+
+        // 更新当前消息列表
+        updateCurrentMessages();
+      }
+    }
     // 初始化
     function init () {
+      loadSettings(); // 加载保存的设置
       updateTotalCountDisplay();
       updateVisibleCount();
       toggleCounter();
@@ -943,18 +1262,35 @@
       autoHideToggle.addEventListener('change', toggleAutoHide);
       counterToggle.addEventListener('change', toggleCounter);
 
+      // 分类标签点击事件 - 修复：确保切换分类时更新消息列表
       // 分类标签点击事件
       categoryTabs.forEach(tab => {
         tab.addEventListener('click', function () {
           switchCategory(this.dataset.category);
+          saveSettings(); // 保存设置
         });
+      });
+
+      // 输入框变化时保存设置
+      document.getElementById('popupCount').addEventListener('change', saveSettings);
+      document.getElementById('popupSpeed').addEventListener('change', saveSettings);
+      document.getElementById('maxVisible').addEventListener('change', saveSettings);
+      document.getElementById('customMessages').addEventListener('input', saveSettings);
+
+      // 开关变化时保存设置
+      autoHideToggle.addEventListener('change', function () {
+        toggleAutoHide();
+        saveSettings();
+      });
+
+      counterToggle.addEventListener('change', function () {
+        toggleCounter();
+        saveSettings();
       });
 
       // 自定义消息变化时更新当前消息列表
       customMessagesInput.addEventListener('input', function () {
-        if (isRunning) {
-          updateCurrentMessages();
-        }
+        updateCurrentMessages();
       });
 
       // 设置面板显示延迟
@@ -1026,6 +1362,7 @@
       const names = {
         'all': '全部',
         'classic': '古风',
+        'hot': '热门',
         'romantic': '浪漫',
         'encouraging': '勉励',
         'modern': '现代'
@@ -1044,7 +1381,7 @@
           messages = messages.concat(categoryMessages);
         });
       } else {
-        messages = [...messageLibrary[managingCategory]];
+        messages = [...(messageLibrary[managingCategory] || [])];
       }
 
       messages.forEach((message, index) => {
@@ -1090,15 +1427,17 @@
           messages = messages.concat(categoryMessages);
         });
       } else {
-        messages = messageLibrary[managingCategory];
+        messages = messageLibrary[managingCategory] || [];
       }
 
-      const message = messages[index];
-      const newText = prompt('编辑文案:', message.text);
-      if (newText !== null && newText.trim() !== '') {
-        message.text = newText.trim();
-        renderMessageList();
-        updateCurrentMessages();
+      if (index >= 0 && index < messages.length) {
+        const message = messages[index];
+        const newText = prompt('编辑文案:', message.text);
+        if (newText !== null && newText.trim() !== '') {
+          message.text = newText.trim();
+          renderMessageList();
+          updateCurrentMessages();
+        }
       }
     }
 
@@ -1108,15 +1447,16 @@
         if (managingCategory === 'all') {
           // 从所有分类中删除这条文案
           Object.keys(messageLibrary).forEach(category => {
-            const categoryIndex = messageLibrary[category].findIndex(msg =>
-              msg.text === messages[index].text && msg.emoji === messages[index].emoji
-            );
-            if (categoryIndex !== -1) {
-              messageLibrary[category].splice(categoryIndex, 1);
+            const messages = messageLibrary[category];
+            if (index < messages.length) {
+              messages.splice(index, 1);
             }
           });
         } else {
-          messageLibrary[managingCategory].splice(index, 1);
+          const messages = messageLibrary[managingCategory];
+          if (messages && index < messages.length) {
+            messages.splice(index, 1);
+          }
         }
 
         renderMessageList();
@@ -1138,12 +1478,16 @@
       };
 
       if (managingCategory === 'all') {
-        // 添加到默认分类
+        // 如果没有默认分类，创建一个
         if (!messageLibrary.default) {
           messageLibrary.default = [];
         }
         messageLibrary.default.push(newMessage);
       } else {
+        // 确保目标分类存在
+        if (!messageLibrary[managingCategory]) {
+          messageLibrary[managingCategory] = [];
+        }
         messageLibrary[managingCategory].push(newMessage);
       }
 
@@ -1158,7 +1502,7 @@
       maxVisibleCountElement.textContent = maxVisiblePopups;
     }
 
-    // 切换分类
+    // 切换分类 - 修复：确保正确更新当前消息列表
     function switchCategory (category) {
       currentCategory = category;
 
@@ -1172,23 +1516,30 @@
       });
 
       updateCurrentMessages();
+
+      // 如果正在运行，重新开始以确保使用新的分类
+      if (isRunning) {
+        pausePopups();
+        startPopups();
+      }
     }
 
-    // 更新当前消息列表
+    // 更新当前消息列表 - 修复：确保正确合并分类消息和自定义消息
     function updateCurrentMessages () {
-      if (currentCategory === 'all') {
+      const customMessages = getCustomMessages();
+
+      if (customMessages.length > 0) {
+        // 如果有自定义消息，只使用自定义消息
+        currentMessages = customMessages;
+      } else if (currentCategory === 'all') {
+        // 使用所有分类的消息
         currentMessages = [];
         Object.values(messageLibrary).forEach(category => {
           currentMessages = currentMessages.concat(category);
         });
       } else {
-        currentMessages = [...messageLibrary[currentCategory]];
-      }
-
-      // 添加自定义消息
-      const customMessages = getCustomMessages();
-      if (customMessages.length > 0) {
-        currentMessages = currentMessages.concat(customMessages);
+        // 使用指定分类的消息
+        currentMessages = [...(messageLibrary[currentCategory] || [])];
       }
     }
 
@@ -1223,6 +1574,11 @@
           visiblePopupCount--;
           updateVisibleCount();
         }
+      }
+
+      // 确保有消息可用
+      if (currentMessages.length === 0) {
+        return;
       }
 
       const popup = document.createElement('div');
@@ -1300,6 +1656,18 @@
       isRunning = false;
       toggleBtn.innerHTML = '<i class="fas fa-play"></i> 继续生成';
     }
+
+    // 添加清除设置按钮（可选）
+    const clearSettingsBtn = document.createElement('button');
+    clearSettingsBtn.innerHTML = '<i class="fas fa-trash-alt"></i> 清除设置';
+    clearSettingsBtn.style.marginTop = '10px';
+    clearSettingsBtn.addEventListener('click', function () {
+      if (confirm('确定要清除所有设置吗？')) {
+        localStorage.removeItem('blessingPopupSettings');
+        location.reload();
+      }
+    });
+    document.getElementById('controlsPanel').appendChild(clearSettingsBtn);
 
     // 清除所有弹窗
     function clearPopups () {
